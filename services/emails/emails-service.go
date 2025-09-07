@@ -1,4 +1,4 @@
-package service
+package emails
 
 import (
 	"app/internal/models"

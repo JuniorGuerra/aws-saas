@@ -1,10 +1,9 @@
 package main
 
 import (
-	"app/config"
+	"app/cmd/emails_sender_service/config"
 	"app/internal/handler"
 	"app/internal/models"
-	"app/internal/service"
 	"fmt"
 	"log"
 	"net/http"

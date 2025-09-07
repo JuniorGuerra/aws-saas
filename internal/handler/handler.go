@@ -2,7 +2,7 @@ package handler
 
 import (
 	"app/internal/models"
-	"app/internal/service"
+	"app/services/emails"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -11,10 +11,10 @@ import (
 )
 
 type Handler struct {
-	EmailSvc *service.EmailServiceController
+	EmailSvc *emails.EmailServiceController
 }
 
-func NewHandlerController(emailSvc *service.EmailServiceController) *Handler {
+func NewHandlerController(emailSvc *emails.EmailServiceController) *Handler {
 	return &Handler{emailSvc}
 }
 

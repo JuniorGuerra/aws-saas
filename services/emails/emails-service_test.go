@@ -1,9 +1,8 @@
-package service_test
+package emails
 
 import (
-	"app/config"
+	"app/cmd/emails_sender_service/config"
 	"app/internal/models"
-	"app/internal/service"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -12,7 +11,7 @@ import (
 func TestEmailServiceController_SendEmail(t *testing.T) {
 	conf := config.LoadConfig()
 	t.Run("Text_Plain_Test", func(t *testing.T) {
-		emailServiceController := service.NewEmailServiceController(models.EmailClient{
+		emailServiceController := NewEmailServiceController(models.EmailClient{
 			Host:     conf.EmailClient.Host,
 			Port:     conf.EmailClient.Port,
 			Username: conf.EmailClient.Username,
@@ -30,16 +29,13 @@ func TestEmailServiceController_SendEmail(t *testing.T) {
 			SendEmailRequestIndividualCommon: models.SendEmailRequestIndividualCommon{
 				To: "viwimeg969@inupup.com",
 			},
-
-			// DocType: "text/html",
-			// Data: nil,
 		})
 
 		require.NoError(t, err)
 	})
 
 	t.Run("Text_HTML_Test", func(t *testing.T) {
-		emailServiceController := service.NewEmailServiceController(models.EmailClient{
+		emailServiceController := NewEmailServiceController(models.EmailClient{
 			Host:     conf.EmailClient.Host,
 			Port:     conf.EmailClient.Port,
 			Username: conf.EmailClient.Username,
