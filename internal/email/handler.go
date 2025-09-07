@@ -1,4 +1,4 @@
-package handler
+package email
 
 import (
 	"app/internal/models"
@@ -14,7 +14,7 @@ type Handler struct {
 	EmailSvc *emails.EmailServiceController
 }
 
-func NewHandlerController(emailSvc *emails.EmailServiceController) *Handler {
+func NewEmailHandler(emailSvc *emails.EmailServiceController) *Handler {
 	return &Handler{emailSvc}
 }
 

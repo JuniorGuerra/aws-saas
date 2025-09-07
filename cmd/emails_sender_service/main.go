@@ -2,17 +2,17 @@ package main
 
 import (
 	"app/cmd/emails_sender_service/config"
-	"app/internal/handler"
-	"app/internal/models"
-	"fmt"
-	"log"
-	"net/http"
 
-	"github.com/aws/aws-lambda-go/events"
+	handler "app/internal/email"
+	"app/internal/models"
+	"app/internal/router"
+	service "app/services/emails"
+	"fmt"
+
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-var h *handler.Handler
+var r *router.Router
 
 func init() {
 	conf := config.LoadConfig()
@@ -26,27 +26,11 @@ func init() {
 		UseSSL:   conf.EmailClient.UseSSL,
 	})
 
-	h = handler.NewHandlerController(emailServiceController)
+	h := handler.NewEmailHandler(emailServiceController)
+	r = router.NewRouter(h)
 }
 
 func main() {
 	fmt.Println("Starting Lambda function...")
-	lambda.Start(lambdaHandler)
-}
-
-func lambdaHandler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
-
-	log.Default().Println("Received request:", request)
-
-	switch request.Path {
-	case "/emailSenderService/send-email":
-		return h.SendEmail(request)
-	case "/emailSenderService/send-email/batch":
-		return h.SendEmailBatch(request)
-	default:
-		return &events.APIGatewayProxyResponse{
-			StatusCode: http.StatusOK,
-			Body:       "Email Service is running",
-		}, nil
-	}
+	lambda.Start(r.HandleRequest)
 }

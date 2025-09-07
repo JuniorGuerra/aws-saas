@@ -7,8 +7,8 @@ type EmailClient struct {
 	Port     int
 	Username string
 	Password string
+	Timeout  time.Duration // time.Duration
 	UseSSL   bool
-	Timeout  time.Duration // in seconds
 }
 
 type SendEmailRequestCommon struct {
