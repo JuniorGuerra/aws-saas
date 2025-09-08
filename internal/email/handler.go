@@ -36,7 +36,7 @@ func (h Handler) SendEmail(request events.APIGatewayProxyRequest) (*events.APIGa
 
 	return &events.APIGatewayProxyResponse{
 		StatusCode: http.StatusOK,
-		Body:       "Email sent successfully",
+		Body:       "{\"message\": \"email send\"}",
 	}, nil
 }
 
@@ -79,7 +79,7 @@ func (h Handler) SendEmailBatch(request events.APIGatewayProxyRequest) (*events.
 
 	return &events.APIGatewayProxyResponse{
 		StatusCode: http.StatusOK,
-		Body:       "Batch emails processed",
+		Body:       "{\"message\": \"batch emails processed\"}",
 	}, nil
 
 }
