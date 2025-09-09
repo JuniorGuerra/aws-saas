@@ -4,7 +4,6 @@ import (
 	"app/cmd/emails_sender_service/config"
 
 	handler "app/internal/email"
-	"app/internal/models"
 	"app/internal/router"
 	service "app/services/emails"
 	"fmt"
@@ -17,7 +16,7 @@ var r *router.Router
 func init() {
 	conf := config.LoadConfig()
 
-	emailServiceController := service.NewEmailServiceController(models.EmailClient{
+	emailServiceController := service.NewEmailServiceController(config.EmailClient{
 		Host:     conf.EmailClient.Host,
 		Port:     conf.EmailClient.Port,
 		Username: conf.EmailClient.Username,

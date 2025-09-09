@@ -11,7 +11,7 @@ import (
 func TestEmailServiceController_SendEmail(t *testing.T) {
 	conf := config.LoadConfig()
 	t.Run("Text_Plain_Test", func(t *testing.T) {
-		emailServiceController := NewEmailServiceController(models.EmailClient{
+		emailServiceController := NewEmailServiceController(config.EmailClient{
 			Host:     conf.EmailClient.Host,
 			Port:     conf.EmailClient.Port,
 			Username: conf.EmailClient.Username,
@@ -35,7 +35,7 @@ func TestEmailServiceController_SendEmail(t *testing.T) {
 	})
 
 	t.Run("Text_HTML_Test", func(t *testing.T) {
-		emailServiceController := NewEmailServiceController(models.EmailClient{
+		emailServiceController := NewEmailServiceController(config.EmailClient{
 			Host:     conf.EmailClient.Host,
 			Port:     conf.EmailClient.Port,
 			Username: conf.EmailClient.Username,

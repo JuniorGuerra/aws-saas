@@ -1,16 +1,5 @@
 package models
 
-import "time"
-
-type EmailClient struct {
-	Host     string
-	Port     int
-	Username string
-	Password string
-	Timeout  time.Duration // time.Duration
-	UseSSL   bool
-}
-
 type SendEmailRequestCommon struct {
 	From    string `json:"from"`
 	Subject string `json:"subject"`

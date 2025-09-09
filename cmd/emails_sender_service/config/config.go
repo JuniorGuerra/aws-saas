@@ -1,16 +1,34 @@
 package config
 
 import (
-	"app/internal/models"
 	"log"
 	"os"
 	"strconv"
 	"time"
 )
 
+type PostgresConfig struct {
+	Host     string
+	Port     string
+	User     string
+	Password string
+	Database string
+	SSLMode  string
+}
+
+type EmailClient struct {
+	Host     string
+	Port     int
+	Username string
+	Password string
+	Timeout  time.Duration // time.Duration
+	UseSSL   bool
+}
+
 type Config struct {
-	EmailClient models.EmailClient
+	EmailClient EmailClient
 	Token       string
+	Database    PostgresConfig
 }
 
 func LoadConfig() *Config {
@@ -28,7 +46,7 @@ func LoadConfig() *Config {
 	}
 
 	return &Config{
-		EmailClient: models.EmailClient{
+		EmailClient: EmailClient{
 			Host:     getEnvOrDefault("SMTP_HOST", "smtp.hostinger.com"),
 			Port:     port,
 			Username: getEnvOrDefault("SMTP_USERNAME", ""),
@@ -37,6 +55,14 @@ func LoadConfig() *Config {
 			UseSSL:   useSSL,
 		},
 		Token: getEnvOrDefault("API_TOKEN", ""),
+		Database: PostgresConfig{
+			Host:     getEnvOrDefault("DB_HOST", "localhost"),
+			Port:     getEnvOrDefault("DB_PORT", "5432"),
+			User:     getEnvOrDefault("DB_USER", "postgres"),
+			Password: getEnvOrDefault("DB_PASSWORD", ""),
+			Database: getEnvOrDefault("DB_NAME", "postgres"),
+			SSLMode:  getEnvOrDefault("DB_SSLMODE", "require"),
+		},
 	}
 }
 

@@ -1,6 +1,7 @@
 package emails
 
 import (
+	"app/cmd/emails_sender_service/config"
 	"app/internal/models"
 	"html/template"
 	"log"
@@ -12,7 +13,7 @@ type EmailServiceController struct {
 	client *mail.Client
 }
 
-func NewEmailServiceController(data models.EmailClient) *EmailServiceController {
+func NewEmailServiceController(data config.EmailClient) *EmailServiceController {
 	opts := []mail.Option{
 		mail.WithPort(data.Port),
 		mail.WithSMTPAuth(mail.SMTPAuthPlain),
